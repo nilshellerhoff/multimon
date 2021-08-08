@@ -1,4 +1,8 @@
-# multimon
+# Multimon
+
+https://nilshellerhoff.github.io/multimon/
+
+Arrange multi monitor setups and calculate width and height
 
 ## Project setup
 ```
