@@ -1,6 +1,8 @@
 <template>
   <div :style="`width: ${maxWidth}px; min-width: 180px; text-align: left;`">
-    <div class="monitor" :style="style"></div>
+    <div class="monitor" :style="style">
+      <Window :ppi="ppi" :windows-scale-factor="nscalefactor"/>
+    </div>
     <table>
       <tr>
         <td>Diagonal:</td>
@@ -36,6 +38,23 @@
         </td>
       </tr>
       <tr>
+        <td>Scaling</td>
+        <td>
+          <div class="input-container" style="width: 60px">
+            <select
+              style="width: 100%; border: none"
+              v-model="nscalefactor"
+            >
+              <option value="1">100%</option>
+              <option value="1.25">125%</option>
+              <option value="1.50">150%</option>
+              <option value="1.5">175%</option>
+              <option value="2">200%</option>
+            </select>
+          </div>
+        </td>
+      </tr>
+      <tr>
         <td>Aspect ratio:</td>
         <td>
           <div class="input-container" style="color: #666">
@@ -59,6 +78,14 @@
           </div>
         </td>
       </tr>
+      <tr>
+        <td>Scaled PPI:</td>
+        <td>
+          <div class="input-container" style="color: #666">
+            {{ (ppi / nscalefactor).toFixed(1) }}
+          </div>
+        </td>
+      </tr>
     </table>
     <div style="text-align: center">
       <button title="move monitor left" @click="$emit('move-left')"><i class="fa fa-arrow-left" ></i></button>
@@ -75,6 +102,7 @@
   border: 2px solid black;
   margin: 10px;
   display: inline-block;
+  overflow: hidden;
 }
 .input-container {
   text-align: left;
@@ -86,6 +114,7 @@
   border-radius: 5px;
 }
 input,
+select,
 input:active,
 input:focus {
   font-family: Arial, sans-serif;
@@ -107,14 +136,20 @@ input[type="number"]::-webkit-outer-spin-button {
 </style>
 
 <script>
+import Window from "./Window.vue"
+
 export default {
   name: "Monitor",
+  components: {
+    Window,
+  },
   props: ["width", "height", "diagonal", "scalingFactor"],
   data: function () {
     return {
       nwidth: this.width,
       nheight: this.height,
       ndiagonal: this.diagonal,
+      nscalefactor: 1
     };
   },
   computed: {
