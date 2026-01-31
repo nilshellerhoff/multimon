@@ -12,6 +12,8 @@
               :diagonal="monitor.diagonal"
               :scalingFactor=scalingFactor
               @remove="removeMonitor(monitor.id)"
+              @move-left="moveMonitorLeft(monitor.id)"
+              @move-right="moveMonitorRight(monitor.id)"
             />
           </td>
         </tr>
@@ -59,6 +61,20 @@ export default {
     removeMonitor(id) {
       this.monitors = this.monitors.filter((monitor) => monitor.id != id);
     },
+
+    moveMonitor(id, places) {
+      const idx = this.monitors.findIndex(m => m.id == id)
+      if (idx + places < 0 || idx + places >= this.monitors.length) return
+      const monitor = this.monitors[idx]
+      this.monitors = this.monitors.filter(m => m.id != id)
+      this.monitors.splice(idx + places, 0, monitor)
+    },
+        moveMonitorLeft(id) {
+      this.moveMonitor(id, -1)
+    },
+    moveMonitorRight(id) {
+      this.moveMonitor(id, 1)
+    }
   },
 };
 </script>

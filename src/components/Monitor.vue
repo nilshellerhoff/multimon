@@ -61,7 +61,10 @@
       </tr>
     </table>
     <div style="text-align: center">
-      <button @click="$emit('remove')" style="display: inline">remove</button>
+      <button title="move monitor left" @click="$emit('move-left')"><i class="fa fa-arrow-left" ></i></button>
+      <button title="remove monitor" @click="$emit('remove')" ><i class="fa fa-trash-can"></i></button>
+      <button title="rotate monitor" @click="rotate()"><i class="fa fa-rotate-left"></i></button>
+      <button title="move monitor right" @click="$emit('move-right')"><i class="fa fa-arrow-right"></i></button>
     </div>
   </div>
 </template>
@@ -155,6 +158,11 @@ export default {
       }
       return this.gcd(b, a % b);
     },
+    rotate() {
+      const origWidth = this.nwidth;
+      this.nwidth = this.nheight;
+      this.nheight = origWidth;
+    }
   },
 };
 </script>
