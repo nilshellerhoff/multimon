@@ -4,6 +4,8 @@ https://nilshellerhoff.github.io/multimon/
 
 Arrange multi monitor setups and calculate width and height
 
+![Screenshot](image.png)
+
 ## Project setup
 ```
 yarn install
