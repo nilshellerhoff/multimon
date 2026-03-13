@@ -25,10 +25,10 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: NODE_OPTIONS=--openssl-legacy-provider npm install
 
       - name: Build project
-        run: npm run build
+        run: NODE_OPTIONS=--openssl-legacy-provider npm run build
 
       - name: Upload build artifacts
         uses: actions/upload-pages-artifact@v3
